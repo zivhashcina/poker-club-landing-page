@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הרשמה למועדון הפוקר</title>
+    <title>דף נחיתה - מועדון הפוקר</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
             background-color: #121212;
             color: white;
-            text-align: center;
             padding: 20px;
         }
         .container {
@@ -20,35 +20,72 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
-        input {
+        input, button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
+        }
+        input {
+            background: #2D2D2D;
+            color: white;
         }
         button {
-            background-color: #ffcc00;
-            color: black;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            border-radius: 5px;
-            font-size: 18px;
+            background: #E50914;
+            color: white;
             cursor: pointer;
+        }
+        button:hover {
+            background: #FF3D00;
+        }
+        #response-message {
+            margin-top: 15px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>הצטרפו למועדון הפוקר הטוב בישראל</h2>
-        <p>קבלו גישה למשחקים יוקרתיים ובונוסים שווים!</p>
-        <form action="https://formspree.io/f/sismabat@gmail.com" method="POST">
+        <h2>ברוך הבא למועדון הפוקר</h2>
+        <p>השאר את פרטיך וניצור איתך קשר בהקדם!</p>
+        <form id="contact-form" action="https://formspree.io/f/xjkgerww" method="POST">
             <input type="text" name="name" placeholder="שם מלא" required>
             <input type="email" name="email" placeholder="אימייל" required>
-            <input type="tel" name="phone" placeholder="מספר טלפון" required>
-            <button type="submit">הירשם עכשיו</button>
+            <input type="tel" name="phone" placeholder="טלפון" required>
+            <button type="submit">שלח</button>
         </form>
+        <p id="response-message"></p>
     </div>
+
+    <script>
+        document.getElementById("contact-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // מונע שליחה רגילה של הטופס
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const responseMessage = document.getElementById("response-message");
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    responseMessage.style.color = "green";
+                    responseMessage.textContent = "✅ הפרטים נשלחו בהצלחה! ניצור איתך קשר בהקדם.";
+                    form.reset(); // מאפס את הטופס לאחר שליחה מוצלחת
+                } else {
+                    throw new Error("שגיאה בשליחת הטופס, נסה שוב מאוחר יותר.");
+                }
+            } catch (error) {
+                responseMessage.style.color = "red";
+                responseMessage.textContent = "❌ שגיאה בשליחת הנתונים: " + error.message;
+            }
+        });
+    </script>
 </body>
 </html>
