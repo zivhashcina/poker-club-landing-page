@@ -5,59 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מועדון הפוקר המוביל</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Heebo', Arial, sans-serif;
             text-align: center;
-            background-color: #121212;
+            background: url('https://source.unsplash.com/1600x900/?poker,casino') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
         .container {
             max-width: 450px;
-            margin: auto;
-            background: linear-gradient(145deg, #1E1E1E, #2A2A2A);
+            background: rgba(0, 0, 0, 0.85);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
             border: 2px solid gold;
+            animation: fadeIn 1s ease-in-out;
         }
+
         h2 {
-            font-size: 24px;
+            font-size: 26px;
             color: gold;
+            text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.7);
+            animation: bounce 1.5s infinite;
         }
+
         p {
             font-size: 18px;
             color: #ccc;
         }
-        input, button {
+
+        input {
             width: 100%;
             padding: 12px;
             margin: 12px 0;
             border: none;
             border-radius: 6px;
             font-size: 16px;
-        }
-        input {
             background: #2D2D2D;
             color: white;
             border: 1px solid gold;
+            transition: all 0.3s ease-in-out;
         }
+
+        input:focus {
+            background: #3D3D3D;
+            outline: none;
+            transform: scale(1.05);
+        }
+
         button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
             background: gold;
             color: black;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
+
         button:hover {
             background: #FFD700;
             transform: scale(1.05);
+            box-shadow: 0px 0px 15px gold;
+        }
+
+        button::before {
+            content: "🎲";
+            position: absolute;
+            left: -40px;
+            opacity: 0;
+            transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        button:hover::before {
+            left: 10px;
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>ברוך הבא למועדון הפוקר אינסיידר </h2>
+        <h2>ברוך הבא למועדון הפוקר אינסיידר</h2>
         <p>השאר פרטים וסוכן אישי יצור איתך קשר 24/7!</p>
         <form action="https://formspree.io/f/xjkgerww" method="POST">
             <input type="text" name="name" placeholder="שם מלא" required>
